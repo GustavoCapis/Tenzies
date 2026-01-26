@@ -2,7 +2,12 @@ import { useState } from "react";
 import Die from "./Die.jsx";
 
 export default function App() {
-  const [state, setState] = useState(generateAllNewDice());
+  const [dice, setDice] = useState(generateAllNewDice());
+
+  //roll dice event function
+  function rollDice() {
+    setDice(generateAllNewDice());
+  }
 
   //returns an array of 10 random numbers between 1-6 inclusive.
   function generateAllNewDice() {
@@ -16,10 +21,11 @@ export default function App() {
     return diceArray;
   }
   //map over dice
-  const diceElements = state.map((number) => <Die value={number} />);
+  const diceElements = dice.map((number) => <Die value={number} />);
   return (
     <main>
       <div className="die-container">{diceElements}</div>
+      <button className="roll-button" onClick={rollDice}>Roll</button>
     </main>
   );
 }
