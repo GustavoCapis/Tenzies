@@ -1,5 +1,9 @@
+import { useState } from "react";
 import Die from "./Die.jsx";
+
 export default function App() {
+  const [state, setState] = useState(generateAllNewDice());
+
   //returns an array of 10 random numbers between 1-6 inclusive.
   function generateAllNewDice() {
     const diceArray = [];
@@ -11,21 +15,11 @@ export default function App() {
 
     return diceArray;
   }
-
+  //map over dice
+  const diceElements = state.map((number) => <Die value={number} />);
   return (
     <main>
-      <div className="die-container">
-        <Die value="3" />
-        <Die value="3" />
-        <Die value="3" />
-        <Die value="3" />
-        <Die value="3" />
-        <Die value="3" />
-        <Die value="3" />
-        <Die value="3" />
-        <Die value="3" />
-        <Die value="3" />
-      </div>
+      <div className="die-container">{diceElements}</div>
     </main>
   );
 }
