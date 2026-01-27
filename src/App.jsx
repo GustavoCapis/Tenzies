@@ -9,23 +9,27 @@ export default function App() {
     setDice(generateAllNewDice());
   }
 
-  //returns an array of 10 random numbers between 1-6 inclusive.
+  //returns an object array with the properties value and isHeld.
   function generateAllNewDice() {
     const diceArray = [];
 
     for (let i = 0; i < 10; i++) {
-      const randomNumber = Math.floor(Math.random() * 7) + 1;
-      diceArray.push(randomNumber);
+      const randomNumber = Math.floor(Math.random() * 6) + 1;
+      diceArray.push({ value: randomNumber, isHeld: false, id: i });
     }
 
     return diceArray;
   }
   //map over dice
-  const diceElements = dice.map((number) => <Die value={number} />);
+  const diceElements = dice.map((obj) => (
+    <Die key={obj.id} value={obj.value} />
+  ));
   return (
     <main>
       <div className="die-container">{diceElements}</div>
-      <button className="roll-button" onClick={rollDice}>Roll</button>
+      <button className="roll-button" onClick={rollDice}>
+        Roll
+      </button>
     </main>
   );
 }
