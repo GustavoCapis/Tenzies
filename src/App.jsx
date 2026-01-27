@@ -4,6 +4,9 @@ import Die from "./Die.jsx";
 export default function App() {
   const [dice, setDice] = useState(generateAllNewDice());
 
+  //win condition
+  const gameWon = dice.every(die => die.isHeld) && dice.every(die => die.value === dice[0].value)
+
   //returns an object array with the properties value and isHeld.
   function generateAllNewDice() {
     const diceArray = [];
@@ -56,7 +59,7 @@ export default function App() {
       </p>
       <div className="die-container">{diceElements}</div>
       <button className="roll-button" onClick={rollDice}>
-        Roll
+        {gameWon ? "New Game" : "Roll"}
       </button>
     </main>
   );
