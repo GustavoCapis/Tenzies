@@ -20,9 +20,25 @@ export default function App() {
 
     return diceArray;
   }
+
+  //Hold dice function
+  function hold(id) {
+    setDice((prevDice) =>
+      prevDice.map((item) =>
+        item.id === id ? { ...item, isHeld: !item.isHeld } : item,
+      ),
+    );
+  }
+
   //map over dice
   const diceElements = dice.map((obj) => (
-    <Die key={obj.id} value={obj.value} isHeld={obj.isHeld}/>
+    <Die
+      key={obj.id}
+      value={obj.value}
+      isHeld={obj.isHeld}
+      id={obj.id}
+      onHold={hold}
+    />
   ));
   return (
     <main>
