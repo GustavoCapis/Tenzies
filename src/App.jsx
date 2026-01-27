@@ -22,7 +22,7 @@ export default function App() {
   }
   //map over dice
   const diceElements = dice.map((obj) => (
-    <Die key={obj.id} value={obj.value} />
+    <Die key={obj.id} value={obj.value} isHeld={obj.isHeld}/>
   ));
   return (
     <main>
