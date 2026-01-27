@@ -4,11 +4,6 @@ import Die from "./Die.jsx";
 export default function App() {
   const [dice, setDice] = useState(generateAllNewDice());
 
-  //roll dice event function
-  function rollDice() {
-    setDice(generateAllNewDice());
-  }
-
   //returns an object array with the properties value and isHeld.
   function generateAllNewDice() {
     const diceArray = [];
@@ -19,6 +14,17 @@ export default function App() {
     }
 
     return diceArray;
+  }
+
+  //roll dice event function
+  function rollDice() {
+    setDice((oldDice) =>
+      oldDice.map((die) =>
+        die.isHeld === false
+          ? { ...die, value: Math.floor(Math.random() * 6) + 1 }
+          : die,
+      ),
+    );
   }
 
   //Hold dice function
