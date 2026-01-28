@@ -42,6 +42,16 @@ export default function App() {
     );
   }
 
+  //New Game function
+  function resetGame() {
+    setDice(generateAllNewDice());
+  }
+
+  //Handle click on button function
+  function handleClick() {
+    gameWon ? resetGame() : rollDice();
+  }
+
   //map over dice
   const diceElements = dice.map((obj) => (
     <Die
@@ -62,7 +72,7 @@ export default function App() {
         current value between rolls.
       </p>
       <div className="die-container">{diceElements}</div>
-      <button className="roll-button" onClick={rollDice}>
+      <button className="roll-button" onClick={handleClick}>
         {gameWon ? "New Game" : "Roll"}
       </button>
     </main>
