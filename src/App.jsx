@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Die from "./Die.jsx";
 import Confetti from "react-confetti";
 
 export default function App() {
   const [dice, setDice] = useState(generateAllNewDice);
 
-  //win condition
+  //Button ref
+  const buttonRef = useRef(null)
+
+  //Win condition
   const gameWon =
     dice.every((die) => die.isHeld) &&
     dice.every((die) => die.value === dice[0].value);
 
-  //returns an object array with the properties value and isHeld.
+  //Colateral effect: focus on button after end game
+  useEffect(() => {gameWon && buttonRef.current.focus()}, [gameWon])
+
+  //Returns an object array with the properties value and isHeld.
   function generateAllNewDice() {
     const diceArray = [];
 
@@ -22,7 +28,7 @@ export default function App() {
     return diceArray;
   }
 
-  //roll dice function
+  //Roll dice function
   function rollDice() {
     setDice((oldDice) =>
       oldDice.map((die) =>
@@ -52,7 +58,7 @@ export default function App() {
     gameWon ? resetGame() : rollDice();
   }
 
-  //map over dice
+  //Map over dice
   const diceElements = dice.map((obj) => (
     <Die
       key={obj.id}
@@ -77,7 +83,10 @@ export default function App() {
         current value between rolls.
       </p>
       <div className="die-container">{diceElements}</div>
-      <button className="roll-button" onClick={handleClick}>
+      <button 
+      ref={buttonRef}
+      className="roll-button" 
+      onClick={handleClick}>
         {gameWon ? "New Game" : "Roll"}
       </button>
     </main>
